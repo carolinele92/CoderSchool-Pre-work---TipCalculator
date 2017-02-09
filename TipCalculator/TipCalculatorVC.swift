@@ -35,17 +35,16 @@ class TipCalculatorVC: UIViewController {
     var roundUpTip = false
     
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
 // --- Initial values
+        
         peopleTextField.text = "1"
 
         //UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         //UserDefaults.standard.synchronize()
-
+   
     }
 
 
@@ -61,19 +60,21 @@ class TipCalculatorVC: UIViewController {
         
 // --- Setup/Retrieve Tip %
         
-        
         if let tipPercentage = UserDefaults.standard.object(forKey: "tipPercentage") as? [String: Double] {
             self.tipPercentage = tipPercentage
+        
             calculateTip()
         } else {
             tipPercentage = ["bad": 10.0, "average": 15, "excellent": 20]
             
-            tipPercentageValues = [Double](tipPercentage.values).sorted {$0 < $1}
+            tipPercentageValues = [Double](tipPercentage.values).sorted{$0 < $1}
             tipPercentageLabel.text = String(tipPercentageValues[0])
             
             UserDefaults.standard.set(tipPercentage, forKey: "tipPercentage")
         }
       
+        print(tipPercentage)
+        
         
         
 // --- Setup/Retrieve Currency
@@ -120,20 +121,26 @@ class TipCalculatorVC: UIViewController {
             roundUpTip = false
             UserDefaults.standard.set(roundUpTip, forKey: "roundUpGrandTip")
         }
-        
-        
-        
+      
     }
+    
     
     @IBAction func calculateTip() {
         
 // --- Calculation formula
         
-        tipPercentageValues = [Double](tipPercentage.values).sorted {$0 < $1}
+        tipPercentageValues = [Double](tipPercentage.values).sorted{$0 < $1}
         
         bill = Double(billTextField.text!) ?? 0
+  
         
-        people = Double(peopleTextField.text!) ?? 1
+        if peopleTextField.text == "0" {
+            peopleTextField.text = "1"
+            people = 1.0
+        } else {
+            people = Double(peopleTextField.text!) ?? 1
+        }
+        
         
         
         if tipPercentageValues.count == tipControl.numberOfSegments {
@@ -154,7 +161,6 @@ class TipCalculatorVC: UIViewController {
         if roundUpTip {
             tip = ceil(tip)
         }
-        
         
         tipPercentageLabel.text = String(tipPercentageValues[tipControl.selectedSegmentIndex])
         tipLabel.text = String(format: "$ %.2f", tip)
