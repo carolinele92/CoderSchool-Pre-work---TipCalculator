@@ -1,5 +1,5 @@
 # CoderSchool-Pre-work---TipCalculator
-# ![Video](Walkthrough.gif)
+
 # Pre-work - *Name of App Here*
 
 **TipCalculator** is a tip calculator application for iOS.
@@ -19,19 +19,29 @@ The following **optional** features are implemented:
 * [ ] UI animations
 * [ ] Remembering the bill amount across app restarts (if <10mins)
 * [ ] Using locale-specific currency and currency thousands separators.
-* [ ] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
+* [ ] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesnt have to tap anywhere to use this app. Just launch the app and start typing.
 
 The following **additional** features are implemented:
 
-
+* [x] Selecting theme
+* [x] Selecting currency
+* [x] Selecting option of rounding up tip/grand total amount
+* [x] Tiping percentage value settings validation 
+* [x] Shaking device to reset values
+* [x] Remembering changes made in settings
 
 - [ ] List anything else that you can get done to improve the app functionality!
+* [ ] UI animations
+* [ ] Remembering the bill amount across app restarts (if <10mins)
+* [ ] Using locale-specific currency and currency thousands separators.
+* [ ] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesnt have to tap anywhere to use this app. Just launch the app and start typing.
+
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+# ![Video](Walkthrough.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -41,7 +51,7 @@ Describe any challenges encountered while building the app.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2017] [Caroline Le]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
