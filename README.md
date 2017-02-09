@@ -1,6 +1,4 @@
-# CoderSchool-Pre-work---TipCalculator
-
-# Pre-work - *Name of App Here*
+# CoderSchool Pre-work - *TipCalculator*
 
 **TipCalculator** is a tip calculator application for iOS.
 
