@@ -30,7 +30,7 @@ The following **additional** features are implemented:
 * [x] Shaking device to reset values
 * [x] Remembering changes made in settings
 
-- [ ] List anything else that you can get done to improve the app functionality!
+List anything else that you can get done to improve the app functionality!
 * [ ] UI animations
 * [ ] Remembering the bill amount across app restarts (if <10mins)
 * [ ] Using locale-specific currency and currency thousands separators.
