@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TipCalculatorVC: UIViewController {
+class TipCalculatorVC: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var billTextField: UITextField!
     @IBOutlet weak var peopleTextField: UITextField!
@@ -20,6 +20,7 @@ class TipCalculatorVC: UIViewController {
     @IBOutlet weak var themeImageView: UIImageView!
     @IBOutlet weak var tipPercentageLabel: UILabel!
     
+    let formatter = NumberFormatter()
     
     var tipPercentage: [String: Double]!
     var tipPercentageValues: [Double]!
@@ -41,7 +42,8 @@ class TipCalculatorVC: UIViewController {
 // --- Initial values
         
         peopleTextField.text = "1"
-
+        billTextField.becomeFirstResponder()
+        
         //UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         //UserDefaults.standard.synchronize()
    
@@ -53,7 +55,18 @@ class TipCalculatorVC: UIViewController {
         
     }
 
+ 
+// --- Limit textField input length
     
+    func textField (_ billTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let maxLength = 10
+        let currentString: NSString = billTextField.text! as NSString
+        let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+        return newString.length <= maxLength
+    }
+        
+        
+        
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -74,19 +87,6 @@ class TipCalculatorVC: UIViewController {
         }
       
         print(tipPercentage)
-        
-        
-        
-// --- Setup/Retrieve Currency
-        
-        if let currency = UserDefaults.standard.object(forKey: "currency") as? String{
-            self.currency = currency
-            tipCurrencyLabel.text = currency
-            totalCurrencyLabel.text = currency
-        } else {
-            currency = "USD"
-            UserDefaults.standard.set(currency, forKey: "currency")
-        }
         
         
         
@@ -122,6 +122,19 @@ class TipCalculatorVC: UIViewController {
             UserDefaults.standard.set(roundUpTip, forKey: "roundUpGrandTip")
         }
       
+        
+        // --- Setup Locale Currency
+        
+        formatter.numberStyle = .currency
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        
+        tipLabel.text = formatter.string(from: tip as NSNumber)
+        totalLabel.text = formatter.string(from: total as NSNumber)
+        tipCurrencyLabel.text = formatter.currencyCode
+        totalCurrencyLabel.text = formatter.currencyCode
+        
+    
     }
     
     
@@ -132,7 +145,8 @@ class TipCalculatorVC: UIViewController {
         tipPercentageValues = [Double](tipPercentage.values).sorted{$0 < $1}
         
         bill = Double(billTextField.text!) ?? 0
-  
+        
+        
         
         if peopleTextField.text == "0" {
             peopleTextField.text = "1"
@@ -163,8 +177,8 @@ class TipCalculatorVC: UIViewController {
         }
         
         tipPercentageLabel.text = String(tipPercentageValues[tipControl.selectedSegmentIndex])
-        tipLabel.text = String(format: "$ %.2f", tip)
-        totalLabel.text = String(format: "$ %.2f", total)
+        tipLabel.text = formatter.string(from: tip as NSNumber)
+        totalLabel.text = formatter.string(from: total as NSNumber)
        
     }
     
@@ -174,9 +188,10 @@ class TipCalculatorVC: UIViewController {
     
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         billTextField.text = ""
-        tipLabel.text = "$ 0.00"
-        totalLabel.text = "$ 0.00"
-        peopleTextField.text = "1"
+        tip = 0.0
+        total = 0.0
+        tipLabel.text = formatter.string(from: tip as NSNumber)
+        totalLabel.text = formatter.string(from: total as NSNumber)
     }
     
 }

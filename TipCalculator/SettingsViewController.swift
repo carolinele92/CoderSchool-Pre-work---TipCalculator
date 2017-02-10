@@ -10,14 +10,12 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
    
-    @IBOutlet weak var currencyDetail: UILabel!
     @IBOutlet weak var themeDetail: UILabel!
-    @IBOutlet weak var currencyCell: UITableViewCell!
     @IBOutlet weak var roundUpTipSwitch: UISwitch!
     @IBOutlet weak var roundUpTotalSwitch: UISwitch!
     
     var seletedTheme = UIImageView()
-    var selectedCurrency = String()
+    
 
     
 
@@ -36,17 +34,6 @@ class SettingsViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
        
-        
-        
-        if let currency = UserDefaults.standard.object(forKey: "currency") as? String{
-            currencyDetail.text = currency
-        } else {
-            let currency = "USD"
-            UserDefaults.standard.set(currency, forKey: "currency")
-        }
-        
-       
-        
         if let theme = UserDefaults.standard.object(forKey: "theme") as? String {
             themeDetail.text = theme
         } else {

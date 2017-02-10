@@ -10,7 +10,6 @@
 		824DEEA51E4185C600276E91 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824DEEA41E4185C600276E91 /* SettingsViewController.swift */; };
 		824DEEAB1E44847300276E91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 824DEEA91E44847300276E91 /* Main.storyboard */; };
 		828231D31E48106400BF5A9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 828231D21E48106400BF5A9B /* Assets.xcassets */; };
-		82A5F8FD1E4834C9000EA370 /* CurrencyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A5F8FC1E4834C9000EA370 /* CurrencyVC.swift */; };
 		82A5F8FF1E483CFE000EA370 /* TipPercentageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A5F8FE1E483CFE000EA370 /* TipPercentageVC.swift */; };
 		82A5F9011E49A7EE000EA370 /* AboutUsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A5F9001E49A7EE000EA370 /* AboutUsVC.swift */; };
 		82B4DE421E45CF8D00CEAD78 /* ThemeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B4DE411E45CF8D00CEAD78 /* ThemeVC.swift */; };
@@ -42,7 +41,6 @@
 		824DEEA41E4185C600276E91 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		824DEEAA1E44847300276E91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		828231D21E48106400BF5A9B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		82A5F8FC1E4834C9000EA370 /* CurrencyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyVC.swift; sourceTree = "<group>"; };
 		82A5F8FE1E483CFE000EA370 /* TipPercentageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipPercentageVC.swift; sourceTree = "<group>"; };
 		82A5F9001E49A7EE000EA370 /* AboutUsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsVC.swift; sourceTree = "<group>"; };
 		82B4DE411E45CF8D00CEAD78 /* ThemeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeVC.swift; sourceTree = "<group>"; };
@@ -90,7 +88,6 @@
 				82D8CE6C1E3F937F00CCD9FF /* TipCalculatorVC.swift */,
 				824DEEA41E4185C600276E91 /* SettingsViewController.swift */,
 				82A5F8FE1E483CFE000EA370 /* TipPercentageVC.swift */,
-				82A5F8FC1E4834C9000EA370 /* CurrencyVC.swift */,
 				82B4DE411E45CF8D00CEAD78 /* ThemeVC.swift */,
 				82A5F9001E49A7EE000EA370 /* AboutUsVC.swift */,
 			);
@@ -289,7 +286,6 @@
 				82D8CE6D1E3F937F00CCD9FF /* TipCalculatorVC.swift in Sources */,
 				82A5F8FF1E483CFE000EA370 /* TipPercentageVC.swift in Sources */,
 				82A5F9011E49A7EE000EA370 /* AboutUsVC.swift in Sources */,
-				82A5F8FD1E4834C9000EA370 /* CurrencyVC.swift in Sources */,
 				82D8CE6B1E3F937F00CCD9FF /* AppDelegate.swift in Sources */,
 				824DEEA51E4185C600276E91 /* SettingsViewController.swift in Sources */,
 			);
