@@ -16,23 +16,24 @@ The following **required** functionality is complete:
 The following **optional** features are implemented:
 * [ ] UI animations
 * [ ] Remembering the bill amount across app restarts (if <10mins)
-* [ ] Using locale-specific currency and currency thousands separators.
-* [ ] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesnt have to tap anywhere to use this app. Just launch the app and start typing.
+* [x] Using locale-specific currency and currency thousands separators.
+* [x] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesnt have to tap anywhere to use this app. Just launch the app and start typing.
 
 The following **additional** features are implemented:
 
 * [x] Selecting theme
-* [x] Selecting currency
 * [x] Selecting option of rounding up tip/grand total amount
-* [x] Tiping percentage value settings validation 
+* [x] Tiping percentage value settings validation
+* [x] Bill amount input validation
 * [x] Shaking device to reset values
 * [x] Remembering changes made in settings
+* [x] Others: Designed app icon, loading screen & theme
+
 
 List anything else that you can get done to improve the app functionality!
 * [ ] UI animations
 * [ ] Remembering the bill amount across app restarts (if <10mins)
-* [ ] Using locale-specific currency and currency thousands separators.
-* [ ] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesnt have to tap anywhere to use this app. Just launch the app and start typing.
+
 
 
 ## Video Walkthrough 
