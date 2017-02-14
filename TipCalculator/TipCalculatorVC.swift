@@ -20,6 +20,7 @@ class TipCalculatorVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var themeImageView: UIImageView!
     @IBOutlet weak var tipPercentageLabel: UILabel!
     
+    @IBOutlet weak var infoLabel: UILabel!
     let formatter = NumberFormatter()
     
     var tipPercentage: [String: Double]!
@@ -44,35 +45,49 @@ class TipCalculatorVC: UIViewController, UITextFieldDelegate {
         peopleTextField.text = "1"
         billTextField.becomeFirstResponder()
         
+        
+// --- Setup Locale Currency
+        
+        formatter.numberStyle = .currency
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        
+        
+// --- Reset UserDefaults
+        
         //UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         //UserDefaults.standard.synchronize()
+  
+        
+        
+// --- Animation
+        infoLabel.center.x = view.center.x
+        infoLabel.center.x -= view.bounds.width
+        
+        UIView.animate(withDuration: 0.5, delay: 6, animations: {
+            
+            self.infoLabel.center.x += self.view.bounds.width})
    
     }
 
 
-    @IBAction func onTap(_ sender: UITapGestureRecognizer) {
-        view.endEditing(true)
-        
-    }
+
 
  
-// --- Limit textField input length
-    
+// --- Limit Bill textField input length
     func textField (_ billTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let maxLength = 10
-        let currentString: NSString = billTextField.text! as NSString
-        let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
-        return newString.length <= maxLength
+        let maxBillLength = 10
+        let currentBillString: NSString = billTextField.text! as NSString
+        let newBillString: NSString = currentBillString.replacingCharacters(in: range, with: string) as NSString
+        return newBillString.length <= maxBillLength
     }
-        
-        
+    
         
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         
 // --- Setup/Retrieve Tip %
-        
         if let tipPercentage = UserDefaults.standard.object(forKey: "tipPercentage") as? [String: Double] {
             self.tipPercentage = tipPercentage
         
@@ -90,21 +105,35 @@ class TipCalculatorVC: UIViewController, UITextFieldDelegate {
         
         
         
-// --- Setup/Retrieve Theme
+// --- Retrieve user's input
+        if let bill = UserDefaults.standard.object(forKey: "bill") {
+            self.billTextField.text = bill as? String
+            calculateTip()
+        }
         
+        
+        if let people = UserDefaults.standard.object(forKey: "people") {
+            self.peopleTextField.text = people as? String
+            calculateTip()
+        } else {
+            peopleTextField.text = "1"
+            UserDefaults.standard.set("1", forKey: "people")
+            
+        }
+        
+        
+// --- Setup/Retrieve Theme
         if let theme = UserDefaults.standard.object(forKey: "theme") as? String {
             self.theme = theme
             themeImageView.image = UIImage(named: theme)
         } else {
             theme = "Mermaid"
             UserDefaults.standard.set(theme, forKey: "theme")
-            
         }
         
         
         
 // --- Setup/Retrieve round Up Switch state
-        
         if let roundUpGrand = UserDefaults.standard.object(forKey: "roundUpGrandTotal") as? Bool {
             self.roundUpGrand = roundUpGrand
             calculateTip()
@@ -122,32 +151,30 @@ class TipCalculatorVC: UIViewController, UITextFieldDelegate {
             UserDefaults.standard.set(roundUpTip, forKey: "roundUpGrandTip")
         }
       
+        formattCurrency()
         
-        // --- Setup Locale Currency
-        
-        formatter.numberStyle = .currency
-        formatter.minimumFractionDigits = 2
-        formatter.maximumFractionDigits = 2
-        
+    }
+    
+    
+// --- Set Locale Currency
+    
+    func formattCurrency () {
         tipLabel.text = formatter.string(from: tip as NSNumber)
         totalLabel.text = formatter.string(from: total as NSNumber)
         tipCurrencyLabel.text = formatter.currencyCode
         totalCurrencyLabel.text = formatter.currencyCode
-        
-    
     }
     
     
+    
     @IBAction func calculateTip() {
-        
-// --- Calculation formula
         
         tipPercentageValues = [Double](tipPercentage.values).sorted{$0 < $1}
         
         bill = Double(billTextField.text!) ?? 0
         
         
-        
+// --- People textField valiation
         if peopleTextField.text == "0" {
             peopleTextField.text = "1"
             people = 1.0
@@ -157,6 +184,7 @@ class TipCalculatorVC: UIViewController, UITextFieldDelegate {
         
         
         
+// --- Calculation formula
         if tipPercentageValues.count == tipControl.numberOfSegments {
             tip = (bill * (tipPercentageValues[tipControl.selectedSegmentIndex]) / people) / 100
         } else {
@@ -166,8 +194,8 @@ class TipCalculatorVC: UIViewController, UITextFieldDelegate {
         total = (bill + tip) / (people)
         
   
-// --- Round Up Tip & Grand Total
         
+// --- Round Up Tip & Grand Total
         if roundUpGrand {
             total = ceil(total)
         }
@@ -177,21 +205,44 @@ class TipCalculatorVC: UIViewController, UITextFieldDelegate {
         }
         
         tipPercentageLabel.text = String(tipPercentageValues[tipControl.selectedSegmentIndex])
-        tipLabel.text = formatter.string(from: tip as NSNumber)
-        totalLabel.text = formatter.string(from: total as NSNumber)
+        formattCurrency()
        
     }
     
     
     
-// --- Shake to clear
+// --- Save user's input
+    @IBAction func calculationFinished(_ sender: Any) {
+        
+
+        if let bill = billTextField.text  {
+            UserDefaults.standard.set(bill, forKey: "bill")
+        }
+        
+        if let people = peopleTextField.text {
+            UserDefaults.standard.set(people, forKey: "people")
+        }
+        
+    }
     
+    
+    
+// --- Shake to clear
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         billTextField.text = ""
+        peopleTextField.text = "1"
         tip = 0.0
         total = 0.0
-        tipLabel.text = formatter.string(from: tip as NSNumber)
-        totalLabel.text = formatter.string(from: total as NSNumber)
+        formattCurrency()
+        UserDefaults.standard.set("", forKey: "bill")
+    }
+    
+    
+    
+// --- Keyboard exit
+    @IBAction func onTap(_ sender: UITapGestureRecognizer) {
+        view.endEditing(true)
+        
     }
     
 }
